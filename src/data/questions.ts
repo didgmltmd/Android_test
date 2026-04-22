@@ -1,0 +1,268 @@
+import type { Question } from "../types";
+
+export const questions: Question[] = [
+  {
+    id: 1,
+    title: "안드로이드와 iOS 차이",
+    type: "short-answer",
+    question:
+      "안드로이드와 iOS의 차이를 시험 답안 수준으로 2~3문장으로 간단히 설명하시오.",
+    expectedKeywords: ["개방성", "제조사", "운영체제", "앱 생태계"],
+    relatedPdf: "1주차.pdf",
+    relatedWeek: 1,
+    relatedPages: [3, 4],
+    relatedTopics: ["모바일 운영체제", "안드로이드 특징"],
+    hint: "개방형/폐쇄형 생태계와 제조사 측면을 함께 정리",
+    modelAnswerSummary:
+      "안드로이드는 다양한 제조사가 사용하는 개방형 모바일 운영체제이고, iOS는 애플 기기 중심의 폐쇄적 운영체제이다.",
+  },
+  {
+    id: 2,
+    title: "안드로이드의 대표 특징",
+    type: "short-answer",
+    question: "안드로이드의 대표적인 특징 3가지를 서술하시오.",
+    expectedKeywords: ["리눅스 커널", "자바", "코틀린", "센서", "SQLite"],
+    relatedPdf: "1주차.pdf",
+    relatedWeek: 1,
+    relatedPages: [4, 5, 11],
+    relatedTopics: ["리눅스 커널", "자바/코틀린", "센서", "SQLite"],
+    hint: "운영체제 기반, 개발 언어, 하드웨어/DB 지원 관점",
+    modelAnswerSummary:
+      "리눅스 커널 기반이며 자바/코틀린으로 개발하고, 센서 연동과 SQLite 같은 기능을 지원한다.",
+  },
+  {
+    id: 3,
+    title: "센서와 SQLite 지원 이유",
+    type: "essay",
+    question:
+      "안드로이드가 센서 연동과 SQLite를 지원하는 것이 모바일 앱 개발에서 왜 중요한지 설명하시오.",
+    expectedKeywords: ["하드웨어 활용", "로컬 저장", "모바일 환경", "앱 기능 확장"],
+    relatedPdf: "1주차.pdf",
+    relatedWeek: 1,
+    relatedPages: [10, 11],
+    relatedTopics: ["센서", "SQLite"],
+    hint: "센서와 DB가 각각 어떤 앱 경험을 가능하게 하는지 나눠서 설명",
+    modelAnswerSummary:
+      "센서는 위치, 기울기 같은 하드웨어 정보를 활용하게 하고 SQLite는 네트워크 없이도 데이터를 로컬에 저장하게 한다.",
+  },
+  {
+    id: 4,
+    title: "컴포넌트 기반 앱 구조",
+    type: "essay",
+    question:
+      "애플리케이션이 컴포넌트로 이루어진다는 말의 의미를 설명하시오.",
+    expectedKeywords: ["액티비티", "서비스", "방송 수신자", "콘텐츠 제공자", "역할 분리"],
+    relatedPdf: "차2주-복사.pdf",
+    relatedWeek: 2,
+    relatedPages: [3, 4, 5],
+    relatedTopics: ["컴포넌트", "애플리케이션 구조"],
+    hint: "앱이 하나의 덩어리가 아니라 역할별 요소로 구성된다는 점",
+    modelAnswerSummary:
+      "안드로이드 앱은 액티비티, 서비스, 방송 수신자 등 역할이 다른 컴포넌트가 협력해 동작하는 구조이다.",
+  },
+  {
+    id: 5,
+    title: "액티비티란 무엇인가",
+    type: "essay",
+    question: "액티비티란 무엇인지 서술하시오.",
+    expectedKeywords: ["화면", "사용자 인터페이스", "컴포넌트", "상호작용"],
+    relatedPdf: "차2주-복사.pdf",
+    relatedWeek: 2,
+    relatedPages: [5, 6],
+    relatedTopics: ["액티비티"],
+    hint: "앱 화면과 사용자 상호작용을 연결하는 컴포넌트",
+    modelAnswerSummary:
+      "액티비티는 사용자 인터페이스 화면을 가지며 사용자의 입력과 화면 흐름을 담당하는 컴포넌트이다.",
+  },
+  {
+    id: 6,
+    title: "onCreate와 onResume 비교",
+    type: "short-answer",
+    question:
+      "액티비티 생명주기 메서드 중 onCreate와 onResume의 역할을 간단히 비교하시오.",
+    expectedKeywords: ["초기화", "화면 준비", "다시 활성화", "사용자 상호작용"],
+    relatedPdf: "차2주-복사.pdf",
+    relatedWeek: 2,
+    relatedPages: [10, 11],
+    relatedTopics: ["액티비티 생명주기"],
+    hint: "한 번의 생성과 다시 전면에 보이는 시점을 구분",
+    modelAnswerSummary:
+      "onCreate는 초기 생성과 화면 설정을 담당하고, onResume은 화면이 다시 활성화되어 사용자와 상호작용 가능한 상태가 되는 시점이다.",
+  },
+  {
+    id: 7,
+    title: "서비스 종류 차이",
+    type: "essay",
+    question:
+      "포그라운드 서비스와 백그라운드 서비스의 차이를 설명하시오.",
+    expectedKeywords: ["알림", "사용자 인지", "백그라운드 작업", "우선순위"],
+    relatedPdf: "차2주-복사.pdf",
+    relatedWeek: 2,
+    relatedPages: [7, 8],
+    relatedTopics: ["서비스"],
+    hint: "사용자에게 보이는지, 시스템 우선순위가 어떤지 비교",
+    modelAnswerSummary:
+      "포그라운드 서비스는 알림을 통해 사용자에게 보이며 중요한 작업을 수행하고, 백그라운드 서비스는 사용자에게 직접 보이지 않는 작업을 처리한다.",
+  },
+  {
+    id: 8,
+    title: "방송 수신자 사용 예",
+    type: "essay",
+    question:
+      "방송 수신자는 어떤 상황에서 사용되는지 예를 들어 설명하시오.",
+    expectedKeywords: ["시스템 이벤트", "브로드캐스트", "배터리", "부팅", "네트워크"],
+    relatedPdf: "차2주-복사.pdf",
+    relatedWeek: 2,
+    relatedPages: [8, 9],
+    relatedTopics: ["방송 수신자"],
+    hint: "시스템이 보내는 이벤트를 받아 동작하는 사례 중심",
+    modelAnswerSummary:
+      "방송 수신자는 배터리 부족, 부팅 완료, 네트워크 변경 같은 시스템 이벤트를 받아 필요한 동작을 수행할 때 사용한다.",
+  },
+  {
+    id: 9,
+    title: "인텐트의 의미와 필요성",
+    type: "essay",
+    question: "인텐트란 무엇이며 왜 필요한지 설명하시오.",
+    expectedKeywords: ["메시지", "컴포넌트 연결", "실행 요청", "데이터 전달"],
+    relatedPdf: "차2주-복사.pdf",
+    relatedWeek: 2,
+    relatedPages: [9, 12],
+    relatedTopics: ["인텐트", "컴포넌트 통신"],
+    hint: "컴포넌트 사이 연결 도구라는 점을 중심으로 설명",
+    modelAnswerSummary:
+      "인텐트는 컴포넌트에게 어떤 작업을 요청하는 메시지이며, 화면 전환이나 데이터 전달 같은 상호작용을 위해 필요하다.",
+  },
+  {
+    id: 10,
+    title: "View와 ViewGroup 차이",
+    type: "short-answer",
+    question: "View와 ViewGroup의 차이를 설명하시오.",
+    expectedKeywords: ["기본 UI 요소", "컨테이너", "자식 뷰", "배치"],
+    relatedPdf: "chap03 기본 위젯.pdf",
+    relatedWeek: 3,
+    relatedPages: [3, 4],
+    relatedTopics: ["View", "ViewGroup"],
+    hint: "하나의 화면 요소와 여러 요소를 담는 컨테이너로 나눠서 정리",
+    modelAnswerSummary:
+      "View는 버튼이나 텍스트 같은 개별 UI 요소이고, ViewGroup은 여러 View를 담아 배치하는 컨테이너이다.",
+  },
+  {
+    id: 11,
+    title: "android:id의 필요성",
+    type: "short-answer",
+    question: "android:id를 지정하는 이유를 설명하시오.",
+    expectedKeywords: ["구분", "참조", "이벤트 처리", "코드 연결"],
+    relatedPdf: "chap03 기본 위젯.pdf",
+    relatedWeek: 3,
+    relatedPages: [6, 7],
+    relatedTopics: ["android:id", "위젯 참조"],
+    hint: "레이아웃 안의 위젯을 코드에서 식별하는 목적",
+    modelAnswerSummary:
+      "android:id는 각 위젯을 구분하고 코드에서 찾아 참조하거나 이벤트를 연결하기 위해 필요하다.",
+  },
+  {
+    id: 12,
+    title: "Button, EditText, TextView 비교",
+    type: "concept-check",
+    question:
+      "다음 위젯의 역할을 각각 설명하시오: Button, EditText, TextView",
+    expectedKeywords: ["클릭", "입력", "텍스트 출력", "상호작용"],
+    relatedPdf: "chap03 기본 위젯.pdf",
+    relatedWeek: 3,
+    relatedPages: [8, 9, 10],
+    relatedTopics: ["Button", "EditText", "TextView"],
+    hint: "입력/출력/행동 유발 관점으로 3개를 구분",
+    modelAnswerSummary:
+      "Button은 클릭 동작을 유발하고, EditText는 사용자 입력을 받으며, TextView는 텍스트를 화면에 표시한다.",
+  },
+  {
+    id: 13,
+    title: "옳은 설명 고르기",
+    type: "concept-check",
+    question:
+      "다음 중 옳은 설명을 고르고 이유를 쓰시오. 'ViewGroup은 다른 View를 포함할 수 있다.'",
+    expectedKeywords: ["옳다", "컨테이너", "자식 뷰", "배치"],
+    relatedPdf: "chap03 기본 위젯.pdf",
+    relatedWeek: 3,
+    relatedPages: [3, 4],
+    relatedTopics: ["ViewGroup"],
+    hint: "ViewGroup의 핵심 정의를 떠올리면 된다",
+    modelAnswerSummary:
+      "옳은 설명이다. ViewGroup은 여러 자식 View를 포함하고 배치하는 컨테이너 역할을 한다.",
+  },
+  {
+    id: 14,
+    title: "LinearLayout 설명",
+    type: "short-answer",
+    question: "LinearLayout이 무엇인지 설명하시오.",
+    expectedKeywords: ["가로", "세로", "한 방향", "순차 배치"],
+    relatedPdf: "chap04 레이아웃(강의자료).pdf",
+    relatedWeek: 4,
+    relatedPages: [4, 5],
+    relatedTopics: ["LinearLayout", "레이아웃 종류"],
+    hint: "자식 뷰를 한 방향으로 배치하는 구조",
+    modelAnswerSummary:
+      "LinearLayout은 자식 뷰를 가로 또는 세로 한 방향으로 순서대로 배치하는 레이아웃이다.",
+  },
+  {
+    id: 15,
+    title: "절대 좌표 배치의 문제",
+    type: "essay",
+    question:
+      "레이아웃을 절대좌표로 배치하는 것이 좋지 않은 이유를 설명하시오.",
+    expectedKeywords: ["화면 크기", "해상도", "유지보수", "반응형"],
+    relatedPdf: "chap04 레이아웃(강의자료).pdf",
+    relatedWeek: 4,
+    relatedPages: [6, 7],
+    relatedTopics: ["레이아웃 종류", "절대 배치 한계"],
+    hint: "여러 기기 크기와 해상도 대응 문제를 떠올리기",
+    modelAnswerSummary:
+      "절대좌표 배치는 화면 크기와 해상도가 다른 기기에서 UI가 깨지기 쉬워 유지보수와 재사용성이 떨어진다.",
+  },
+  {
+    id: 16,
+    title: "레이아웃 개념 비교",
+    type: "concept-check",
+    question:
+      "LinearLayout과 RelativeLayout 또는 ConstraintLayout의 차이를 간단히 설명하시오.",
+    expectedKeywords: ["순차 배치", "상대 위치", "제약 조건", "유연성"],
+    relatedPdf: "chap04 레이아웃(강의자료).pdf",
+    relatedWeek: 4,
+    relatedPages: [4, 8],
+    relatedTopics: ["LinearLayout", "RelativeLayout", "ConstraintLayout"],
+    hint: "단순 방향 배치와 위치 제어 방식의 차이",
+    modelAnswerSummary:
+      "LinearLayout은 한 방향으로 순차 배치하고, RelativeLayout이나 ConstraintLayout은 다른 뷰와의 관계나 제약 조건을 기준으로 더 유연하게 배치한다.",
+  },
+  {
+    id: 17,
+    title: "super 호출 누락 문제",
+    type: "code",
+    question:
+      "액티비티의 onCreate 또는 onResume에서 super 호출을 누락하면 어떤 문제나 에러가 발생할 수 있는지 설명하시오.",
+    expectedKeywords: ["부모 클래스", "초기화 누락", "생명주기", "오동작", "예외"],
+    relatedPdf: "chap06 액티비티와 인텐트.pdf",
+    relatedWeek: 6,
+    relatedPages: [9, 10],
+    relatedTopics: ["액티비티 생명주기", "super 호출"],
+    hint: "부모 클래스가 수행해야 하는 기본 생명주기 처리가 빠진다",
+    modelAnswerSummary:
+      "super 호출을 생략하면 부모 Activity의 기본 생명주기 처리가 누락되어 상태 관리나 화면 초기화가 제대로 되지 않고 예외가 발생할 수 있다.",
+  },
+  {
+    id: 18,
+    title: "코드 해석형 생명주기 문제",
+    type: "code",
+    question:
+      "다음 상황을 설명하시오. 'onCreate(savedInstanceState) 내부에서 setContentView만 호출하고 super.onCreate(savedInstanceState)를 호출하지 않았다.' 왜 문제가 되는가?",
+    expectedKeywords: ["Activity 기본 초기화", "상태 복원", "프레임워크 계약", "오류 가능성"],
+    relatedPdf: "chap06 액티비티와 인텐트.pdf",
+    relatedWeek: 6,
+    relatedPages: [9, 10],
+    relatedTopics: ["생명주기", "super.onCreate"],
+    hint: "프레임워크가 기대하는 Activity 초기화 흐름을 떠올리기",
+    modelAnswerSummary:
+      "super.onCreate를 호출하지 않으면 Activity 기본 초기화와 상태 복원이 제대로 수행되지 않아 화면 동작이 불안정해질 수 있다.",
+  },
+];
