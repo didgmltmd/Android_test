@@ -8,9 +8,9 @@ import { FeedbackPanel } from "./components/FeedbackPanel";
 import { PdfViewerPanel } from "./components/PdfViewerPanel";
 import { QuestionCarousel } from "./components/QuestionCarousel";
 import { questions } from "./data/questions";
+import { useMediaQuery } from "./hooks/useMediaQuery";
 import "./lib/pdf";
 import { gradeAnswer, sanitizeApiKey } from "./lib/openai";
-import { useMediaQuery } from "./hooks/useMediaQuery";
 import type { PersistedAppState, QuestionState } from "./types";
 import {
   buildInitialQuestionStates,
@@ -125,7 +125,9 @@ function App() {
       persistAppState(persisted);
       setStorageError(null);
     } catch (error) {
-      setStorageError(error instanceof Error ? error.message : "알 수 없는 저장 오류");
+      setStorageError(
+        error instanceof Error ? error.message : "저장 중 알 수 없는 오류가 발생했습니다.",
+      );
     }
   }, [
     apiKey,
@@ -223,7 +225,9 @@ function App() {
       window.localStorage.setItem("apiKey", sanitizedValue);
       setStorageError(null);
     } catch (error) {
-      setStorageError(error instanceof Error ? error.message : "API Key 저장에 실패했습니다.");
+      setStorageError(
+        error instanceof Error ? error.message : "API Key 저장에 실패했습니다.",
+      );
     }
   };
 
@@ -286,93 +290,89 @@ function App() {
   };
 
   return (
-    <div className="h-screen overflow-hidden bg-toss-bg text-toss-text">
-      <div className="mx-auto box-border flex h-full w-full max-w-screen-6xl flex-col gap-4 px-4 py-3 md:px-6">
-        <AppHeader
-          questions={questions}
-          currentQuestion={currentQuestion}
-          questionStates={questionStates}
-          progress={progress}
-          onSelectQuestion={moveToQuestion}
-          onPrev={handlePrev}
-          onNext={handleNext}
-          onOpenApiKeyModal={() => setIsApiKeyModalOpen(true)}
-          onOpenResetModal={() => setIsResetModalOpen(true)}
-        />
+    <div className="h-dvh overflow-hidden bg-toss-bg text-toss-text">
+      <div className="mx-auto grid h-full w-full max-w-screen-6xl grid-rows-[24dvh_minmax(0,1fr)] gap-3 box-border px-4 py-3 md:px-6">
+        <div className="min-h-0">
+          <AppHeader
+            questions={questions}
+            currentQuestion={currentQuestion}
+            questionStates={questionStates}
+            progress={progress}
+            onSelectQuestion={moveToQuestion}
+            onPrev={handlePrev}
+            onNext={handleNext}
+            onOpenApiKeyModal={() => setIsApiKeyModalOpen(true)}
+            onOpenResetModal={() => setIsResetModalOpen(true)}
+          />
+        </div>
 
-        <ApiKeyBanner />
+        <div className="min-h-0">
+          <div className="grid h-full min-h-0 gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+            <div className="grid h-full min-h-0 grid-rows-[18dvh_minmax(0,1fr)] gap-5">
+              <QuestionCarousel
+                questions={questions}
+                currentIndex={currentIndex}
+                questionStates={questionStates}
+              />
 
-        {requestError ? (
-          <div className="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700">
-            {requestError}
-          </div>
-        ) : null}
+              <div className="min-h-0">
+                <AnswerEditor
+                  questionState={currentQuestionState}
+                  onChangeAnswer={handleAnswerChange}
+                  onClearAnswer={handleClearAnswer}
+                  onToggleHint={() =>
+                    updateQuestionState(currentQuestion.id, (prev) => ({
+                      ...prev,
+                      isHintOpen: !prev.isHintOpen,
+                    }))
+                  }
+                  onEvaluate={handleEvaluate}
+                  isEvaluating={isEvaluating}
+                  hint={currentQuestion.hint}
+                />
+              </div>
+            </div>
 
-        {storageError ? (
-          <div className="rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700">
-            localStorage 저장 오류: {storageError}
-          </div>
-        ) : null}
-
-        <div className="min-h-0 flex-1">
-          <div className="grid h-full min-h-0 gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-start">
-          <div className="min-h-0 space-y-5">
-            <QuestionCarousel
-              questions={questions}
-              currentIndex={currentIndex}
-              questionStates={questionStates}
-            />
-
-            <div
-              className="self-start"
-              style={{
-                position: isMobile ? "static" : "sticky",
-                top: isMobile ? undefined : "24px",
-              }}
-            >
-              <AnswerEditor
+            <div className="min-h-0">
+              <FeedbackPanel
+                questionTitle={currentQuestion.title}
+                relatedPdf={currentQuestion.relatedPdf}
+                relatedWeek={currentQuestion.relatedWeek}
+                relatedPages={currentQuestion.relatedPages}
+                relatedTopics={[
+                  ...currentQuestion.relatedTopics,
+                  ...(currentQuestionState.isHintOpen ? currentQuestion.expectedKeywords : []),
+                ]}
+                canOpenPdf={Boolean(currentQuestionState.feedback)}
+                currentPdfPage={currentPdfPage}
                 questionState={currentQuestionState}
-                onChangeAnswer={handleAnswerChange}
-                onClearAnswer={handleClearAnswer}
-                onToggleHint={() =>
+                onToggleHidden={() =>
                   updateQuestionState(currentQuestion.id, (prev) => ({
                     ...prev,
-                    isHintOpen: !prev.isHintOpen,
+                    isFeedbackHidden: !prev.isFeedbackHidden,
                   }))
                 }
-                onEvaluate={handleEvaluate}
-                isEvaluating={isEvaluating}
-                hint={currentQuestion.hint}
+                onOpenPdf={() => setIsPdfOpen(true)}
+                onJumpToPdfPage={handleJumpToPdfPage}
               />
             </div>
           </div>
-
-          <div className="min-h-0">
-            <FeedbackPanel
-              questionTitle={currentQuestion.title}
-              relatedPdf={currentQuestion.relatedPdf}
-              relatedWeek={currentQuestion.relatedWeek}
-              relatedPages={currentQuestion.relatedPages}
-              relatedTopics={[
-                ...currentQuestion.relatedTopics,
-                ...(currentQuestionState.isHintOpen ? currentQuestion.expectedKeywords : []),
-              ]}
-              canOpenPdf={Boolean(currentQuestionState.feedback)}
-              currentPdfPage={currentPdfPage}
-              questionState={currentQuestionState}
-              onToggleHidden={() =>
-                updateQuestionState(currentQuestion.id, (prev) => ({
-                  ...prev,
-                  isFeedbackHidden: !prev.isFeedbackHidden,
-                }))
-              }
-              onOpenPdf={() => setIsPdfOpen(true)}
-              onJumpToPdfPage={handleJumpToPdfPage}
-            />
-          </div>
-        </div>
         </div>
       </div>
+
+      <ApiKeyBanner />
+
+      {requestError ? (
+        <div className="fixed right-4 top-4 z-40 rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700 shadow-sm">
+          {requestError}
+        </div>
+      ) : null}
+
+      {storageError ? (
+        <div className="fixed left-4 top-4 z-40 rounded-2xl bg-red-50 px-4 py-3 text-sm text-red-700 shadow-sm">
+          localStorage 저장 오류: {storageError}
+        </div>
+      ) : null}
 
       <PdfViewerPanel
         open={isPdfOpen}

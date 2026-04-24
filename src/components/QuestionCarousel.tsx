@@ -15,8 +15,8 @@ export function QuestionCarousel({
   const question = questions[currentIndex];
 
   return (
-    <div className="relative overflow-hidden">
-      <div className="transition-all duration-200">
+    <div className="relative h-full min-h-0 overflow-hidden">
+      <div className="h-full transition-all duration-200">
         <QuestionCard
           index={currentIndex}
           total={questions.length}

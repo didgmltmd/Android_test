@@ -17,8 +17,6 @@ type Props = {
   onJumpToPdfPage: (page: number) => void;
 };
 
-const PANEL_HEIGHT = "h-[56vh] min-h-[20rem] max-h-[72vh]";
-
 export function FeedbackPanel({
   questionTitle,
   relatedPdf,
@@ -36,18 +34,18 @@ export function FeedbackPanel({
 
   if (!feedback) {
     return (
-      <Card className={`flex items-center justify-center bg-[#F8FAFC] ${PANEL_HEIGHT}`}>
+      <Card className="flex h-full min-h-0 items-center justify-center bg-[#F8FAFC]">
         <div className="rounded-2xl bg-white px-6 py-10 text-center text-sm leading-relaxed text-toss-muted">
           아직 채점되지 않았습니다. 답안을 제출하면 점수, 총평, 보완점, 누락 개념,
-          재작성 답안을 저장합니다.
+          재작성 답안을 확인할 수 있습니다.
         </div>
       </Card>
     );
   }
 
   return (
-    <Card className={`overflow-hidden bg-[#F8FAFC] p-0 ${PANEL_HEIGHT}`}>
-      <div className="h-full overflow-y-auto p-4 md:p-5">
+    <Card className="h-full min-h-0 overflow-hidden bg-[#F8FAFC] p-0">
+      <div className="h-full min-h-0 overflow-y-auto p-4 md:p-5">
         <div className="space-y-5">
           <div className="space-y-5 border-b border-gray-100 pb-5">
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -116,7 +114,7 @@ export function FeedbackPanel({
 
           {questionState.isFeedbackHidden ? (
             <div className="rounded-2xl bg-white px-4 py-8 text-center text-sm text-toss-muted">
-              피드백을 가려 둔 상태입니다. 다시 답안을 써 본 뒤 필요할 때 열어 보세요.
+              피드백을 가린 상태입니다. 다시 답안을 써 보고 싶을 때 이 흐름을 활용하세요.
             </div>
           ) : (
             <div className="grid gap-4 md:grid-cols-2">

@@ -31,10 +31,10 @@ export function AppHeader({
   );
 
   return (
-    <div className="sticky top-0 z-30 bg-toss-bg/90 pb-0.5 pt-0.5 backdrop-blur">
-      <Card className="space-y-1.5 px-4 py-2 md:px-5">
-        <div className="flex flex-col gap-1.5 lg:flex-row lg:items-center lg:justify-between">
-          <div className="space-y-0.5">
+    <div className="h-full">
+      <Card className="flex h-full flex-col gap-2 overflow-hidden px-4 py-3 md:px-5">
+        <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
+          <div className="space-y-1">
             <p className="text-[11px] font-semibold text-[#3182F6]">
               Android Exam Companion
             </p>
@@ -51,10 +51,18 @@ export function AppHeader({
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
-            <Button variant="secondary" onClick={onOpenApiKeyModal} className="px-3 py-2">
+            <Button
+              variant="secondary"
+              onClick={onOpenApiKeyModal}
+              className="px-3 py-1.5 text-[13px]"
+            >
               API Key 설정
             </Button>
-            <Button variant="danger" onClick={onOpenResetModal} className="px-3 py-2">
+            <Button
+              variant="danger"
+              onClick={onOpenResetModal}
+              className="px-3 py-1.5 text-[13px]"
+            >
               전체 초기화
             </Button>
           </div>
@@ -74,61 +82,63 @@ export function AppHeader({
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="secondary" onClick={onPrev} className="px-3 py-2">
+            <Button variant="secondary" onClick={onPrev} className="px-3 py-1.5 text-[13px]">
               이전
             </Button>
-            <Button variant="secondary" onClick={onNext} className="px-3 py-2">
+            <Button variant="secondary" onClick={onNext} className="px-3 py-1.5 text-[13px]">
               다음
             </Button>
           </div>
         </div>
 
-        <div className="flex gap-1.5 overflow-x-auto pb-0.5">
-          {questions.map((question) => {
-            const state = questionStates[question.id];
-            const hasAnswer = state?.answer.trim().length > 0;
-            const hasFeedback = Boolean(state?.feedback);
+        <div className="min-h-0 overflow-x-auto overflow-y-hidden pb-0.5">
+          <div className="flex h-full items-start gap-1.5">
+            {questions.map((question) => {
+              const state = questionStates[question.id];
+              const hasAnswer = state?.answer.trim().length > 0;
+              const hasFeedback = Boolean(state?.feedback);
 
-            return (
-              <button
-                key={question.id}
-                onClick={() => onSelectQuestion(question.id)}
-                className={`relative min-h-[54px] min-w-[52px] rounded-[16px] px-2 py-1.5 text-left transition-all duration-200 hover:-translate-y-0.5 ${
-                  question.id === currentQuestion.id
-                    ? "bg-[#3182F6] text-white shadow-sm"
-                    : "bg-gray-50 text-gray-700 hover:bg-gray-100"
-                }`}
-              >
-                <div className="text-sm font-semibold leading-none tracking-tight">
-                  Q{question.id}
-                </div>
-                <div className="absolute bottom-2 left-2 flex items-center gap-1">
-                  <span
-                    className={`h-2 w-2 rounded-full ${
-                      hasAnswer
-                        ? question.id === currentQuestion.id
-                          ? "bg-emerald-300"
-                          : "bg-emerald-500"
-                        : question.id === currentQuestion.id
-                          ? "bg-white/30"
-                          : "bg-gray-300"
-                    }`}
-                  />
-                  <span
-                    className={`h-2 w-2 rounded-full ${
-                      hasFeedback
-                        ? question.id === currentQuestion.id
-                          ? "bg-amber-200"
-                          : "bg-amber-400"
-                        : question.id === currentQuestion.id
-                          ? "bg-white/20"
-                          : "bg-gray-200"
-                    }`}
-                  />
-                </div>
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={question.id}
+                  onClick={() => onSelectQuestion(question.id)}
+                  className={`relative min-h-[46px] min-w-[46px] rounded-[14px] px-2 py-1 text-left transition-all duration-200 hover:-translate-y-0.5 ${
+                    question.id === currentQuestion.id
+                      ? "bg-[#3182F6] text-white shadow-sm"
+                      : "bg-gray-50 text-gray-700 hover:bg-gray-100"
+                  }`}
+                >
+                  <div className="text-[11px] font-semibold leading-none tracking-tight md:text-xs">
+                    Q{question.id}
+                  </div>
+                  <div className="absolute bottom-1.5 left-2 flex items-center gap-1">
+                    <span
+                      className={`h-2 w-2 rounded-full ${
+                        hasAnswer
+                          ? question.id === currentQuestion.id
+                            ? "bg-emerald-300"
+                            : "bg-emerald-500"
+                          : question.id === currentQuestion.id
+                            ? "bg-white/30"
+                            : "bg-gray-300"
+                      }`}
+                    />
+                    <span
+                      className={`h-2 w-2 rounded-full ${
+                        hasFeedback
+                          ? question.id === currentQuestion.id
+                            ? "bg-amber-200"
+                            : "bg-amber-400"
+                          : question.id === currentQuestion.id
+                            ? "bg-white/20"
+                            : "bg-gray-200"
+                      }`}
+                    />
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </Card>
     </div>

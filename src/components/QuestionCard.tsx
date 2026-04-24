@@ -11,8 +11,8 @@ type Props = {
 
 export function QuestionCard({ question, questionState }: Props) {
   return (
-    <Card className="space-y-3 p-4">
-      <div className="flex flex-wrap items-start justify-between gap-3">
+    <Card className="flex h-full min-h-0 flex-col gap-2 overflow-hidden p-4">
+      <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="space-y-2">
           <div className="flex flex-wrap gap-2">
             {questionState.answer ? <Badge tone="green">작성됨</Badge> : null}
