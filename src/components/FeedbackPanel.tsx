@@ -33,10 +33,11 @@ export function FeedbackPanel({
   const feedback = questionState.feedback;
 
   return (
-    <Card className="flex h-full max-h-[calc(100vh-12.5rem)] flex-col overflow-hidden bg-[#F8FAFC]">
+    <Card className="space-y-5 bg-[#F8FAFC]">
       {!feedback ? (
         <div className="flex min-h-[280px] items-center justify-center rounded-2xl bg-white px-6 text-center text-sm leading-relaxed text-toss-muted">
-          아직 채점되지 않았습니다. 답안을 제출하면 점수, 총평, 보완점, 누락 개념, 재작성 답안을 저장합니다.
+          아직 채점되지 않았습니다. 답안을 제출하면 점수, 총평, 보완점, 누락 개념,
+          재작성 답안을 저장합니다.
         </div>
       ) : (
         <>
@@ -102,31 +103,29 @@ export function FeedbackPanel({
             </div>
           </div>
 
-          <div className="min-h-0 flex-1 overflow-y-auto pt-5">
-            {questionState.isFeedbackHidden ? (
-              <div className="rounded-2xl bg-white px-4 py-8 text-center text-sm text-toss-muted">
-                피드백을 가려 둔 상태입니다. 다시 답안을 써 본 뒤 필요할 때 열어 보세요.
-              </div>
-            ) : (
-              <div className="grid gap-4 md:grid-cols-2">
-                <Section title="총평" items={[feedback.summary]} tone="blue" isParagraph />
-                <Section title="잘한 점" items={feedback.strengths} tone="green" />
-                <Section title="부족한 점" items={feedback.weaknesses} tone="red" />
-                <Section
-                  title="핵심 누락 개념"
-                  items={feedback.missingKeywords}
-                  tone="amber"
-                />
-                <Section title="보완점" items={feedback.improvements} tone="blue" />
-                <Section
-                  title="재작성 답안"
-                  items={[feedback.rewrittenAnswer]}
-                  tone="gray"
-                  isParagraph
-                />
-              </div>
-            )}
-          </div>
+          {questionState.isFeedbackHidden ? (
+            <div className="rounded-2xl bg-white px-4 py-8 text-center text-sm text-toss-muted">
+              피드백을 가려 둔 상태입니다. 다시 답안을 써 본 뒤 필요할 때 열어 보세요.
+            </div>
+          ) : (
+            <div className="grid gap-4 md:grid-cols-2">
+              <Section title="총평" items={[feedback.summary]} tone="blue" isParagraph />
+              <Section title="잘한 점" items={feedback.strengths} tone="green" />
+              <Section title="부족한 점" items={feedback.weaknesses} tone="red" />
+              <Section
+                title="핵심 누락 개념"
+                items={feedback.missingKeywords}
+                tone="amber"
+              />
+              <Section title="보완점" items={feedback.improvements} tone="blue" />
+              <Section
+                title="재작성 답안"
+                items={[feedback.rewrittenAnswer]}
+                tone="gray"
+                isParagraph
+              />
+            </div>
+          )}
         </>
       )}
     </Card>

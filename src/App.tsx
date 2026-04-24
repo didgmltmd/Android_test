@@ -286,8 +286,8 @@ function App() {
   };
 
   return (
-    <div className="h-screen overflow-hidden bg-toss-bg text-toss-text">
-      <div className="mx-auto box-border flex h-full w-full max-w-screen-6xl flex-col gap-2 px-4 py-0.5 md:px-6">
+    <div className="min-h-screen bg-toss-bg text-toss-text">
+      <div className="mx-auto box-border flex w-full max-w-screen-6xl flex-col gap-4 px-4 py-3 md:px-6">
         <AppHeader
           questions={questions}
           currentQuestion={currentQuestion}
@@ -314,9 +314,8 @@ function App() {
           </div>
         ) : null}
 
-        <div className="min-h-0 flex-1">
-          <div className="grid h-full min-h-0 gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-start">
-            <div className="min-h-0 space-y-5 overflow-y-auto pr-1">
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:items-start">
+          <div className="space-y-5">
             <QuestionCarousel
               questions={questions}
               currentIndex={currentIndex}
@@ -337,31 +336,30 @@ function App() {
               isEvaluating={isEvaluating}
               hint={currentQuestion.hint}
             />
-            </div>
+          </div>
 
-            <div className="min-h-0 overflow-hidden">
-              <FeedbackPanel
-                questionTitle={currentQuestion.title}
-                relatedPdf={currentQuestion.relatedPdf}
-                relatedWeek={currentQuestion.relatedWeek}
-                relatedPages={currentQuestion.relatedPages}
-                relatedTopics={[
-                  ...currentQuestion.relatedTopics,
-                  ...(currentQuestionState.isHintOpen ? currentQuestion.expectedKeywords : []),
-                ]}
-                canOpenPdf={Boolean(currentQuestionState.feedback)}
-                currentPdfPage={currentPdfPage}
-                questionState={currentQuestionState}
-                onToggleHidden={() =>
-                  updateQuestionState(currentQuestion.id, (prev) => ({
-                    ...prev,
-                    isFeedbackHidden: !prev.isFeedbackHidden,
-                  }))
-                }
-                onOpenPdf={() => setIsPdfOpen(true)}
-                onJumpToPdfPage={handleJumpToPdfPage}
-              />
-            </div>
+          <div>
+            <FeedbackPanel
+              questionTitle={currentQuestion.title}
+              relatedPdf={currentQuestion.relatedPdf}
+              relatedWeek={currentQuestion.relatedWeek}
+              relatedPages={currentQuestion.relatedPages}
+              relatedTopics={[
+                ...currentQuestion.relatedTopics,
+                ...(currentQuestionState.isHintOpen ? currentQuestion.expectedKeywords : []),
+              ]}
+              canOpenPdf={Boolean(currentQuestionState.feedback)}
+              currentPdfPage={currentPdfPage}
+              questionState={currentQuestionState}
+              onToggleHidden={() =>
+                updateQuestionState(currentQuestion.id, (prev) => ({
+                  ...prev,
+                  isFeedbackHidden: !prev.isFeedbackHidden,
+                }))
+              }
+              onOpenPdf={() => setIsPdfOpen(true)}
+              onJumpToPdfPage={handleJumpToPdfPage}
+            />
           </div>
         </div>
       </div>
