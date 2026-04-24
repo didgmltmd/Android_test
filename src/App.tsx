@@ -322,20 +322,22 @@ function App() {
               questionStates={questionStates}
             />
 
-            <AnswerEditor
-              questionState={currentQuestionState}
-              onChangeAnswer={handleAnswerChange}
-              onClearAnswer={handleClearAnswer}
-              onToggleHint={() =>
-                updateQuestionState(currentQuestion.id, (prev) => ({
-                  ...prev,
-                  isHintOpen: !prev.isHintOpen,
-                }))
-              }
-              onEvaluate={handleEvaluate}
-              isEvaluating={isEvaluating}
-              hint={currentQuestion.hint}
-            />
+            <div className="lg:sticky lg:top-24">
+              <AnswerEditor
+                questionState={currentQuestionState}
+                onChangeAnswer={handleAnswerChange}
+                onClearAnswer={handleClearAnswer}
+                onToggleHint={() =>
+                  updateQuestionState(currentQuestion.id, (prev) => ({
+                    ...prev,
+                    isHintOpen: !prev.isHintOpen,
+                  }))
+                }
+                onEvaluate={handleEvaluate}
+                isEvaluating={isEvaluating}
+                hint={currentQuestion.hint}
+              />
+            </div>
           </div>
 
           <div>

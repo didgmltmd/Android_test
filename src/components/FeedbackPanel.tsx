@@ -55,7 +55,10 @@ export function FeedbackPanel({
               <div className="flex flex-wrap items-center gap-3">
                 <div className="rounded-2xl bg-white px-4 py-3 shadow-sm ring-1 ring-gray-100">
                   <p className="text-xs uppercase tracking-wide text-toss-muted">Score</p>
-                  <p className="text-2xl font-semibold text-[#3182F6]">{feedback.score}</p>
+                  <p className="text-2xl font-semibold text-[#3182F6]">
+                    {feedback.score}
+                    <span className="ml-1 text-sm font-medium text-toss-muted">/ 100</span>
+                  </p>
                 </div>
                 <Button variant="secondary" onClick={onOpenPdf} disabled={!canOpenPdf}>
                   관련 PDF 보기

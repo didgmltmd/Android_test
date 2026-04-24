@@ -19,6 +19,8 @@ function buildPrompt(question: Question, answer: string) {
 - 핵심 개념을 맞췄으면 부분점수를 충분히 준다.
 - 틀린 개념은 분명히 지적한다.
 - 재작성 답안은 시험장에서 적을 수 있을 정도로 짧고 명확하게 제시한다.
+- 점수는 반드시 0점 이상 100점 이하의 정수로 준다.
+- 100점은 핵심 개념, 표현, 정확성이 모두 매우 우수한 경우에만 준다.
 
 반드시 아래 JSON 객체만 반환하라. 마크다운 금지.
 필수 스키마:
@@ -55,6 +57,15 @@ function extractJson(raw: string) {
   return objectMatch ? objectMatch[0] : raw;
 }
 
+function normalizeScore(score: unknown) {
+  const numericScore = Number(score ?? 0);
+  if (!Number.isFinite(numericScore)) {
+    return 0;
+  }
+
+  return Math.max(0, Math.min(100, Math.round(numericScore)));
+}
+
 export async function gradeAnswer(params: {
   apiKey: string;
   question: Question;
@@ -79,7 +90,7 @@ export async function gradeAnswer(params: {
         {
           role: "system",
           content:
-            "당신은 한국어로 안드로이드 시험 답안을 채점하는 평가자다. 반드시 JSON만 반환한다.",
+            "당신은 한국어로 안드로이드 시험 답안을 채점하는 평가자다. 반드시 JSON만 반환하며 점수는 0에서 100 사이 정수다.",
         },
         {
           role: "user",
@@ -105,7 +116,7 @@ export async function gradeAnswer(params: {
 
   const parsed = JSON.parse(extractJson(rawContent)) as Feedback;
   return {
-    score: Number(parsed.score ?? 0),
+    score: normalizeScore(parsed.score),
     summary: parsed.summary ?? "요약이 제공되지 않았습니다.",
     strengths: parsed.strengths ?? [],
     weaknesses: parsed.weaknesses ?? [],
